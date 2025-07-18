@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ</title>
+  <link rel="stylesheet" href="/css/home-page.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+  <div class="nav-container" style="display: flex; align-items: center; gap: 30px;">
+    <div class="logo" style="font-weight: bold; font-size: 24px;">QVL Storage</div>
+    <ul class="nav-links" style="display: flex; gap: 20px; list-style: none; margin: 0; padding: 0;">
+      <li><a th:href="@{/}">Home</a></li>
+      <li><a th:href="@{/SWP/issues/create}">Tạo Issue</a></li>
+      <li><a th:href="@{/SWP/storages}">List</a></li>
+      <li><a th:href="@{/customer/support}">Hỗ trợ</a></li>
+      <li><a th:href="@{/SWP/customers/my-bookings}">Đơn hàng của tôi</a></li>
+
+      <li><a th:href="@{/SWP/booking/search}">Đặt kho</a></li>
+    </ul>
+  </div>
+
+  <!-- User Menu bên phải -->
+  <div class="user-menu" style="display: flex; align-items: center; gap: 15px;">
+
+    <!-- Notification Bell -->
+    <li>
+      <a th:href="@{/notifications}" class="notification-bell" title="Thông báo" style="position:relative;">
+        <i class="fa fa-bell" style="font-size:1.5rem;"></i>
+        <span class="notification-badge"
+              th:if="${unreadCount > 0}"
+              th:text="${unreadCount}"
+              style="position:absolute;top:-8px;right:-8px;background:#e74c3c;color:white;border-radius:50%;padding:2px 7px;font-size:0.9rem;"></span>
+      </a>
+    </li>
+    <!-- Profile Menu (icon người) -->
+    <li class="profile-menu" style="position:relative;">
+      <a href="javascript:void(0);" id="profileMenuBtn" title="Tài khoản">
+        <i class="fa fa-user-circle" style="font-size: 1.8rem; color: white;"></i>
+      </a>
+      <ul class="profile-dropdown" id="profileDropdown">
+        <li><a th:href="@{/profile(tab='info')}"><i class="fa fa-id-card"></i> Thông tin cá nhân</a></li>
+        <li><a th:href="@{/profile(tab='update')}"><i class="fa fa-edit"></i> Cập nhật thông tin</a></li>
+        <li><a th:href="@{/profile(tab='forgot')}"><i class="fa fa-unlock-alt"></i> Quên mật khẩu</a></li>
+        <li>
+          <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" style="background:none;border:none;padding:10px 22px;width:100%;text-align:left;cursor:pointer;">
+              <i class="fa fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </li>
+      </ul>
+    </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Hệ Thống Quản Lý Kho Chuyên Nghiệp</h1>
+        <p>An toàn, tin cậy và hiệu quả cho nhu cầu lưu trữ doanh nghiệp của bạn. Hệ thống quản lý tiên tiến giúp hàng hóa của bạn luôn được sắp xếp và dễ dàng truy xuất.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-outline-white">Bắt đầu ngay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="services">
+  <div class="container">
+    <div class="features-content">
+      <div class="features-text">
+        <h2>Được xây dựng với những công cụ quản lý vượt trội.</h2>
+        <p>Hệ thống quản lý kho của chúng tôi cung cấp khả năng theo dõi toàn diện, kiểm soát tồn kho và báo cáo tự động. Tối ưu hoạt động của bạn với giám sát thời gian thực và phân tích nâng cao cho hiệu quả tối ưu.</p>
+        <a href="#" class="btn btn-dark">Khám phá tính năng</a>
+      </div>
+      <div class="storage-grid">
+        <div class="storage-item">
+          <div class="storage-icon">📦</div>
+          <h3>Kho Nhỏ</h3>
+          <div class="price">150.000 VNĐ</div>
+        </div>
+        <div class="storage-item">
+          <div class="storage-icon">🏢</div>
+          <h3>Kho Vừa</h3>
+          <div class="price">200.000 VNĐ</div>
+        </div>
+        <div class="storage-item">
+          <div class="storage-icon">🏭</div>
+          <h3>Kho Lớn</h3>
+          <div class="price">300.000 VNĐ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us" id="about">
+  <div class="container">
+    <div class="why-choose-content">
+      <div class="why-choose-text">
+        <h2>Tại sao chọn chúng tôi</h2>
+        <p>Giải pháp quản lý kho chuyên nghiệp được thiết kế cho doanh nghiệp hiện đại. Phương pháp toàn diện của chúng tôi đảm bảo an toàn, hiệu quả và tin cậy cho mọi nhu cầu lưu trữ của bạn.</p>
+
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">🚚</div>
+            <div>
+              <h3>Giao Hàng Nhanh & Miễn Phí</h3>
+              <p>Dịch vụ vận chuyển nhanh chóng và tin cậy cho hàng hóa lưu kho của bạn. Mạng lưới logistics của chúng tôi đảm bảo giao hàng đúng hẹn cùng với theo dõi chi tiết và bảo hiểm đầy đủ.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">🛒</div>
+            <div>
+              <h3>Dễ Dàng Quản Lý</h3>
+              <p>Giao diện quản lý trực quan với khả năng theo dõi tồn kho thời gian thực. Truy cập dữ liệu lưu kho bất cứ lúc nào, bất cứ nơi đâu thông qua bảng điều khiển thân thiện và ứng dụng di động.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">🛡️</div>
+            <div>
+              <h3>Hỗ Trợ 24/7</h3>
+              <p>Hỗ trợ khách hàng và giám sát kho 24/7. Đội ngũ tận tâm của chúng tôi luôn đảm bảo kho của bạn vận hành trơn tru và sẵn sàng hỗ trợ khi cần thiết.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">🔄</div>
+            <div>
+              <h3>Giải Pháp Linh Hoạt</h3>
+              <p>Tùy chọn lưu trữ linh hoạt phù hợp với sự phát triển của doanh nghiệp bạn. Từ lưu kho ngắn hạn theo mùa đến lưu kho dài hạn, chúng tôi cung cấp những giải pháp mở rộng cho mọi nhu cầu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-choose-visual">
+        <div class="visual-decoration">
+          <div class="dots-pattern"></div>
+          <div class="storage-visual">
+            <div class="storage-boxes">
+              <div class="box box-1"></div>
+              <div class="box box-2"></div>
+              <div class="box box-3"></div>
+            </div>
+            <div class="furniture-elements">
+              <div class="shelf"></div>
+              <div class="cabinet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+  <div class="container">
+    <h2>Khách hàng nói gì về chúng tôi</h2>
+    <div class="testimonial-content">
+      <button class="testimonial-nav prev" onclick="previousTestimonial()">
+        <!-- SVG giữ nguyên -->
+      </button>
+
+      <div class="testimonial-main">
+        <div class="testimonial-slide active">
+          <p class="testimonial-text">"Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="..." alt="Maria Jones">
+            </div>
+            <div class="author-info">
+              <h4>Maria Jones</h4>
+              <p>Giám đốc điều hành, Đồng sáng lập, XYZ Inc.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <p class="testimonial-text">"Trải nghiệm quản lý kho của chúng tôi thật tuyệt vời. Đội ngũ hỗ trợ tận tâm và cơ sở vật chất vượt ngoài mong đợi. Chúng tôi đã thấy sự cải thiện đáng kể về hiệu quả hoạt động kể từ khi hợp tác với QVL Storage."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="..." alt="John Smith">
+            </div>
+            <div class="author-info">
+              <h4>John Smith</h4>
+              <p>Quản lý vận hành, ABC Corp.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <p class="testimonial-text">"Dịch vụ chuyên nghiệp và giải pháp lưu kho đáng tin cậy. QVL Storage đã giúp chúng tôi tối ưu hóa quản lý tồn kho. Hỗ trợ 24/7 và các giải pháp linh hoạt khiến họ trở thành đối tác hoàn hảo cho nhu cầu kinh doanh của chúng tôi."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="..." alt="Sarah Wilson">
+            </div>
+            <div class="author-info">
+              <h4>Sarah Wilson</h4>
+              <p>Giám đốc Logistics, DEF Industries</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="testimonial-nav next" onclick="nextTestimonial()">
+        <!-- SVG giữ nguyên -->
+      </button>
+    </div>
+
+    <div class="testimonial-dots">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h2 class="brand-name">QVL Storage</h2>
+        <p class="brand-description">
+          Hệ thống cho thuê kho hàng chuyên nghiệp trên toàn quốc. Chúng tôi cung cấp giải pháp lưu trữ an toàn, tiện lợi và hiệu quả cho mọi nhu cầu kinh doanh. Với mạng lưới kho bãi hiện đại và dịch vụ quản lý tận tâm, QVL Storage là đối tác tin cậy cho sự phát triển bền vững của doanh nghiệp bạn.
+        </p>
+        <div class="social-links">
+          <!-- giữ nguyên các icon SVG -->
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Về chúng tôi</h3>
+        <ul class="footer-links">
+          <li><a href="#">Dịch vụ</a></li>
+          <li><a href="#">Tin tức</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Hỗ trợ</h3>
+        <ul class="footer-links">
+          <li><a href="#">Trung tâm trợ giúp</a></li>
+          <li><a href="#">Chat trực tuyến</a></li>
+          <li><a href="#">Hotline 24/7</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Sản phẩm</h3>
+        <ul class="footer-links">
+          <li><a href="#">Kho nhỏ</a></li>
+          <li><a href="#">Kho vừa</a></li>
+          <li><a href="#">Kho lớn</a></li>
+          <li><a href="#">Dịch vụ vận chuyển</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="copyright">Bản quyền ©2024. Tất cả quyền được bảo lưu. — QVL Storage System</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Điều khoản & Điều kiện</a></li>
+        <li><a href="#">Chính sách bảo mật</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentTestimonial = 0;
+  const testimonials = document.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function showTestimonial(index) {
+    // Hide all testimonials
+    testimonials.forEach(testimonial => {
+      testimonial.classList.remove('active');
+    });
+
+    // Remove active from all dots
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+    });
+
+    // Show current testimonial and activate dot
+    testimonials[index].classList.add('active');
+    dots[index].classList.add('active');
+  }
+
+  function nextTestimonial() {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(currentTestimonial);
+  }
+
+  function previousTestimonial() {
+    currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(currentTestimonial);
+  }
+
+  function currentSlide(index) {
+    currentTestimonial = index - 1;
+    showTestimonial(currentTestimonial);
+  }
+
+  // Auto-slide every 5 seconds
+  setInterval(nextTestimonial, 5000);
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const btn = document.getElementById("profileMenuBtn");
+    const dropdown = document.getElementById("profileDropdown");
+    btn.addEventListener("click", function(e) {
+      e.preventDefault();
+      dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    });
+    // Đóng menu khi click ngoài vùng
+    window.addEventListener("click", function(event) {
+      if (!btn.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  });
+</script>
+</body>
+</html>
