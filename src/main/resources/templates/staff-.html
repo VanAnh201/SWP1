@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách nhân viên</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #f9f9f9; padding: 20px; }
+    .container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    h1 { font-size: 24px; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 16px; border: 1px solid #ddd; }
+    th { background-color: #f1f1f1; text-align: left; }
+    .btn { background-color: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .btn:hover { opacity: 0.9; }
+    .export-area { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Danh sách nhân viên</h1>
+
+  <div class="export-area">
+    <button class="btn" onclick="exportStaffToExcel()">
+      <i class="fas fa-download"></i> Xuất Excel
+    </button>
+  </div>
+
+  <table id="staffTable">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Họ và tên</th>
+      <th>Email</th>
+      <th>Số điện thoại</th>
+      <th>Vai trò</th>
+      <th>CMND/CCCD</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="staff : ${staffList}">
+      <td th:text="${staff.id}">1</td>
+      <td th:text="${staff.fullname}">Nguyễn Văn A</td>
+      <td th:text="${staff.email}">a@gmail.com</td>
+      <td th:text="${staff.phone}">0123456789</td>
+      <td th:text="${staff.roleName}">Nhân viên</td>
+      <td th:text="${staff.idCitizenCard}">123456789</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function exportStaffToExcel() {
+    const table = document.getElementById('staffTable');
+    const rows = Array.from(table.querySelectorAll('tr'));
+
+    const data = rows.map(row => {
+      return Array.from(row.querySelectorAll('th, td')).map(cell => cell.textContent.trim());
+    });
+
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'NhanVien');
+
+    const fileName = 'danh_sach_nhan_vien_' + new Date().toISOString().slice(0, 10) + '.xlsx';
+    XLSX.writeFile(workbook, fileName);
+  }
+</script>
+</body>
+</html>

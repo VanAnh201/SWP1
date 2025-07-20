@@ -15,10 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("/SWP/staff")
+@RequestMapping("/SWP/staffdb")
 public class StaffDBoardController {
 
     @Autowired
@@ -39,6 +40,8 @@ public class StaffDBoardController {
     StorageTransactionService storageTransactionService;
     @Autowired
     VoucherService voucherService;
+    @Autowired
+    IssueService issueService;
 
     @GetMapping("/staff-dashboard")
     public String showDashboard(Model model) {
@@ -279,5 +282,26 @@ public class StaffDBoardController {
             return "redirect:/SWP/staff/staff-all-storage";
         }
         return "redirect:" + returnUrl;
+    }
+
+    @GetMapping("/van-de")
+    public String staffIssues(Model model) {
+        List<Issue> issues = issueService.getAllIssues();
+        // Chỉ hiển thị issues được tạo bởi khách hàng
+        issues = issues.stream()
+                .filter(issue -> "CUSTOMER".equals(issue.getCreatedByType()))
+                .collect(Collectors.toList());
+        model.addAttribute("issues", issues);
+        return "staff-report";
+    }
+
+    @GetMapping("/van-de/view/{id}")
+    public String viewIssue(@PathVariable int id, Model model) {
+        Optional<Issue> issueOpt = issueService.getIssueById(id);
+        if (issueOpt.isPresent()) {
+            model.addAttribute("issue", issueOpt.get());
+            return "staff-issue-detail";
+        }
+        return "redirect:/staff/van-de";
     }
 }

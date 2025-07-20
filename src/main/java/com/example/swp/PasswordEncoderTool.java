@@ -10,6 +10,7 @@ import com.example.swp.repository.ManageRepository;
 import com.example.swp.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -56,5 +57,6 @@ public class PasswordEncoderTool implements CommandLineRunner {
 
         System.out.println(" Đã mã hóa mật khẩu thành công!");
     }
+
 }
 
